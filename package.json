@@ -2,7 +2,7 @@
   "name": "meta-surf-forecast",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "server.js",
   "dependencies": {
     "express": "^4.14.0"
   },
