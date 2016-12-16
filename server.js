@@ -1,21 +1,37 @@
+'use strict'
+
 const express = require('express')
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
-const bodyParser = require('body-parser');
 const app = express()
+const Router = express.Router()
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const webpackConfig = require('./webpack.config.js')
+const compiler = webpack(webpackConfig)
+const bodyParser = require('body-parser')
 
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  stats: {colors: true}
+}))
 
-app.get('/', (req,res)=>{
-  res.send([{name: 'matt'},{age: 23}])
-})
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}))
 
-app.get('/surf', (req, res)=>{
-  console.log(httpGet('http://api.surfline.com/v1/forecasts/4750?resources=surf,analysis,sort&days=25&getAllSpots=false&units=e&usenearshore=true'))
-  res.send('What you need?');
-})
+const isDeveloping = process.env.NODE_ENV !== 'production'
+const port = isDeveloping ? 3000 : process.env.PORT
 
-app.listen(3000, ()=>{
-  console.log('Listening on port 3000')
-})
+const onStart = (err) => {
+  if (err) {
+    throw new Error(err)
+  }
+  console.info(
+    `==> 🌎 Listening on port ${port}. ` +
+    `Open up http://localhost:${port}/ in your browser.`
+  )
+}
+
+app.listen(process.env.PORT || 3000, onStart)
