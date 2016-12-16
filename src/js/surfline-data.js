@@ -39,6 +39,7 @@ const surfline_data = () => {
     }
 
     display_data(meta_data)
+    chart_generator(meta_data)
     return meta_data
 
   }
@@ -53,7 +54,6 @@ const surfline_data = () => {
   })
 
   let display_data = (data)=>{
-    console.log(data,'deeeee data ')
     let datestamp_holder = document.getElementById('datestamp_holder')
     let min_surf_holder = document.getElementById('min_surf_holder')
     let max_surf_holder = document.getElementById('max_surf_holder')
@@ -77,17 +77,20 @@ const surfline_data = () => {
     })
   }
 
-  var chart = c3.generate({
-      bindto: '#chart',
-      data: {
-          columns: [
-              ['sample', 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200, 170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 350, 220, 250, 300, 270, 140, 150, 90, 150, 50, 120, 70, 40]
-          ]
-      },
-      zoom: {
-          enabled: true
-      }
-  });
+  let chart_generator = (data)=>{
+    console.log(data,'data in da data')
+    var chart = c3.generate({
+        bindto: '#chart',
+        data: {
+            columns: [
+                data.surf_max_arr
+            ]
+        },
+        zoom: {
+            enabled: true
+        }
+    });
+  }
 
   return meta_data
 

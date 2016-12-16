@@ -1,8 +1,9 @@
-@import 'partials/reset';
-@import 'partials/clearfix';
+@import 'partials/_reset';
+@import 'partials/_clearfix';
+@import './c3.scss';
 
 body{
-  background-color: seagreen;
+  background-color: whitesmoke;
   color: white;
 }
 
