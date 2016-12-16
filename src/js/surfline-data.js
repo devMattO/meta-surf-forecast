@@ -25,9 +25,9 @@ const surfline_data = () => {
     })
 
     meta_data = {
+      datestamp_arr: datestamp_arr,
       surf_min_arr: surf_min_arr,
-      surf_max_arr: surf_max_arr,
-      datestamp_arr: datestamp_arr
+      surf_max_arr: surf_max_arr
     }
 
     display_data(meta_data)
@@ -46,6 +46,12 @@ const surfline_data = () => {
 
   let display_data = (data)=>{
     console.log(data,'deeeee data ')
+    data.datestamp_arr.map((el,index)=>{
+      let date = document.createElement('div')
+      date.id = `datestamp_${index}`
+      date.innerHTML = el
+      output.appendChild(date)
+    })
   }
 
   return meta_data
