@@ -1,13 +1,21 @@
 'use strict'
+import c3 from 'c3'
 
 const surfline_data = () => {
 
   let output = document.getElementById('output')
+  let spot_analysis = document.getElementById('spot_analysis')
+  let spot_analysis_container = document.getElementById('spot_analysis_container')
   let meta_data = {}
 
   let reqListener = (res) => {
     let parsed_res = JSON.parse(res.currentTarget.response.toLowerCase())
-    console.log(parsed_res.surf)
+    console.log(parsed_res,'meeeeeeeee')
+    let surf_analysis = document.createElement('div')
+    surf_analysis.innerHTML = parsed_res.analysis.short_term_forecast
+    spot_analysis_container.innerHTML = `<img src="http://camstills.cdn-surfline.com/saltcreekcam/latest_full.jpg" />`
+    spot_analysis.appendChild(surf_analysis)
+
     let surf_min_arr = []
     let surf_max_arr = []
     let datestamp_arr = []
@@ -39,7 +47,7 @@ const surfline_data = () => {
   surf_button.addEventListener('click', ()=>{
     var oReq = new XMLHttpRequest();
       oReq.addEventListener("load", reqListener);
-      oReq.open("GET", "http://api.surfline.com/v1/forecasts/4750?resources=surf,analysis,sort&days=25&getAllSpots=false&units=e&usenearshore=true");
+      oReq.open("GET", "http://api.surfline.com/v1/forecasts/4233?resources=surf,analysis,sort&days=25&getAllSpots=false&units=e&usenearshore=true");
       oReq.setRequestHeader('Content-Type', 'application/json');
       oReq.send();
   })
@@ -68,6 +76,18 @@ const surfline_data = () => {
       max_surf_holder.appendChild(max_surf)
     })
   }
+
+  var chart = c3.generate({
+      bindto: '#chart',
+      data: {
+          columns: [
+              ['sample', 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200, 170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 350, 220, 250, 300, 270, 140, 150, 90, 150, 50, 120, 70, 40]
+          ]
+      },
+      zoom: {
+          enabled: true
+      }
+  });
 
   return meta_data
 

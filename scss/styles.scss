@@ -2,5 +2,25 @@
 @import 'partials/clearfix';
 
 body{
-  background-color: red;
+  background-color: seagreen;
+  color: white;
+}
+
+#output{
+  display: flex;
+  justify-content: center;
+}
+
+.data_holder{
+  margin: 10px;
+}
+
+#spot_analysis_container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#spot_analysis{
+  width: 50%;
 }
