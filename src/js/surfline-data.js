@@ -46,11 +46,26 @@ const surfline_data = () => {
 
   let display_data = (data)=>{
     console.log(data,'deeeee data ')
+    let datestamp_holder = document.getElementById('datestamp_holder')
+    let min_surf_holder = document.getElementById('min_surf_holder')
+    let max_surf_holder = document.getElementById('max_surf_holder')
     data.datestamp_arr.map((el,index)=>{
       let date = document.createElement('div')
       date.id = `datestamp_${index}`
       date.innerHTML = el
-      output.appendChild(date)
+      datestamp_holder.appendChild(date)
+    })
+    data.surf_min_arr.map((el,index)=>{
+      let min_surf = document.createElement('div')
+      min_surf.id = `min_surf_${index}`
+      min_surf.innerHTML = `min: ${el} feet`
+      min_surf_holder.appendChild(min_surf)
+    })
+    data.surf_max_arr.map((el,index)=>{
+      let max_surf = document.createElement('div')
+      max_surf.id = `max_surf_${index}`
+      max_surf.innerHTML = `max: ${el} feet`
+      max_surf_holder.appendChild(max_surf)
     })
   }
 
