@@ -4,12 +4,20 @@ let output = document.getElementById('output')
 
 let reqListener = (res) => {
   let surf = JSON.parse(res.currentTarget.response.toLowerCase())
-  console.log(surf.surf.surf_max)
-  output.innerHTML = surf.surf.surf_max
+  console.log(surf.surf)
   surf.surf.surf_max.map((el,index)=>{
-    let max_surf = document.createElement('p')
+    let day_header = document.createElement('h1')
+    day_header.id = `header_day_${index}`
+    day_header.innerHTML = `Day ${index + 1}`
+    output.appendChild(day_header)
+    let max_surf = document.createElement('div')
     max_surf.id = `max_surf_day_${index}`
-    max_surf.innerHTML = el
+    el.map((el,index)=>{
+      let max_surf_display = document.createElement('p')
+      max_surf_display.id = `max_surf_display_${index}`
+      max_surf_display.innerHTML = `max: ${el} feet`
+      max_surf.appendChild(max_surf_display)
+    })
     output.appendChild(max_surf)
   })
 
